@@ -157,3 +157,13 @@ class FtxClient:
 
     def get_position(self, name: str, show_avg_price: bool = False) -> dict:
         return next(filter(lambda x: x['future'] == name, self.get_positions(show_avg_price)), None)
+    
+    def get_historical(self, name:str, resolution:str = "300",limit:str = "300") -> List[dict]:
+        return self._get(f'/markets/{name}/candles?resolution={resolution}&limit={limit}')
+    
+    def get_deposits(self) -> List[dict]:
+        return self._get('wallet/deposits')    
+    def get_price(self, name:str)-> List[dict]:
+        return self._get(f'markets/{name}')
+
+    
